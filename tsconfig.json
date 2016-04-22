@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+        "declaration": true,
+        "module": "commonjs",
+        "outDir": "dist/",
+        "sourceMap": true,
+        "target": "es6"
+    },
+    "exclude": [
+        "dist",
+        "node_modules",
+        "typings/browser",
+        "typings/browser.d.ts"
+    ],
+    "filesGlob": [
+        "src/**/*.ts",
+        "!./node_modules/**/*.ts",
+        "typings/main.d.ts"
+    ],
+    "atom": {
+        "rewriteTsconfig": false
+    }
+}
