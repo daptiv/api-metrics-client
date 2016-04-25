@@ -5,9 +5,9 @@
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "scripts": {
-    "build": "typings install; tsc",
+    "build": "typings install && tsc -p .",
     "clean": "rm -rf ./dist",
-    "prepublish": "typings install; tsc;",
+    "prepublish": "typings install && tsc -p .",
     "test": "gulp test"
   },
   "engines": {
