@@ -4,9 +4,14 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc -p .",
+    "clean": "rm -rf ./dist",
+    "prepublish": "npm run build && npm test",
+    "test": "gulp test"
   },
-  "engines": { "node": ">=4.2.2" },
+  "engines": {
+    "node": ">=4.2.2"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/daptiv/api-metrics-client.git"
@@ -28,5 +33,11 @@
   "dependencies": {
     "restify": "^4.0.4",
     "statsd-client": "^0.2.2"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-jasmine": "^2.3.0",
+    "gulp-typescript": "^2.13.0",
+    "jasmine": "^2.4.1"
   }
 }
