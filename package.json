@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc -p .",
+    "build": "typings install; tsc",
     "clean": "rm -rf ./dist",
-    "prepublish": "npm run build && npm test",
+    "prepublish": "typings install; tsc;",
     "test": "gulp test"
   },
   "engines": {
