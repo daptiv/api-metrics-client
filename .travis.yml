@@ -4,4 +4,11 @@ node_js:
   - "4"
 before_script:
   - npm install
-
+env:
+  - CXX=g++-4.8
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-4.8
