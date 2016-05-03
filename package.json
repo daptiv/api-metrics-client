@@ -5,10 +5,12 @@
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "scripts": {
-    "build": "typings install && tsc -p .",
+    "build": "npm run typings && tsc -p .",
     "clean": "rm -rf ./dist",
-    "prepublish": "typings install && tsc -p .",
-    "test": "gulp test"
+    "prepublish": "npm run typings && tsc -p .",
+    "test": "gulp test",
+    "typings": "typings install",
+    "watch": "npm run typings && gulp watch"
   },
   "engines": {
     "node": ">=4.2.2"
@@ -38,8 +40,10 @@
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-jasmine": "^2.3.0",
+    "gulp-plumber": "^1.1.0",
     "gulp-typescript": "^2.13.0",
     "jasmine": "^2.4.1",
+    "tslint": "^3.8.1",
     "typescript": "^1.8.10",
     "typings": "^0.8.1"
   }
