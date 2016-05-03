@@ -6,11 +6,15 @@
   "typings": "dist/index.d.ts",
   "scripts": {
     "build": "npm run typings && tsc -p .",
+    "changelog": "conventional-changelog -p api-metrics-client -i CHANGELOG.md -s -r 0",
+    "changelog:git:add": "git add CHANGELOG.md",
+    "changelog:git:commit": "git commit -m 'docs(changelog): update changelog'",
     "clean": "rm -rf ./dist",
     "postversion": "git push && git push --tags",
     "prepublish": "npm run typings && tsc -p .",
     "test": "gulp test",
     "typings": "typings install",
+    "version": "npm run changelog && npm run changelog:git:add && npm run changelog:git:commit",
     "watch": "npm run typings && gulp watch"
   },
   "engines": {
@@ -39,6 +43,7 @@
     "statsd-client": "^0.2.2"
   },
   "devDependencies": {
+    "conventional-changelog-cli": "^1.1.1",
     "gulp": "^3.9.1",
     "gulp-jasmine": "^2.3.0",
     "gulp-plumber": "^1.1.0",
