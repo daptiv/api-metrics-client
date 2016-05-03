@@ -11,7 +11,7 @@
     "changelog:git:commit": "git commit -m 'docs(changelog): update changelog'",
     "clean": "rm -rf ./dist",
     "postversion": "git push && git push --tags",
-    "prepublish": "npm run typings && tsc -p .",
+    "prepublish": "npm run clean && npm run build",
     "test": "gulp test",
     "typings": "typings install",
     "version": "npm run changelog && npm run changelog:git:add && npm run changelog:git:commit",
@@ -26,7 +26,8 @@
   },
   "files": [
     "dist",
-    "src"
+    "src",
+    "typings"
   ],
   "keywords": [
     "metrics",
