@@ -7,6 +7,7 @@
   "scripts": {
     "build": "npm run typings && tsc -p .",
     "clean": "rm -rf ./dist",
+    "postversion": "git push && git push --tags",
     "prepublish": "npm run typings && tsc -p .",
     "test": "gulp test",
     "typings": "typings install",
