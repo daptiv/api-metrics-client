@@ -1,11 +1,20 @@
+<a name="1.0.3"></a>
+## 1.0.3 (2016-05-03)
+
+* fix(typings): include typings in npm package ([184840c](https://github.com/daptiv/api-metrics-client/commit/184840c))
+
+
+
 <a name="1.0.2"></a>
 ## 1.0.2 (2016-05-03)
 
-* docs(changelog): add changelog ([d7b1710](https://github.com/daptiv/api-metrics-client/commit/d7b1710))
+* 1.0.2 ([c076e06](https://github.com/daptiv/api-metrics-client/commit/c076e06))
 * add option for to prefix all keys ([9b32a40](https://github.com/daptiv/api-metrics-client/commit/9b32a40))
 * add postversion script to push version bump and tags to github ([c7cd0bf](https://github.com/daptiv/api-metrics-client/commit/c7cd0bf))
 * add pullquester config ([d98e353](https://github.com/daptiv/api-metrics-client/commit/d98e353))
 * clean prefix ([fc15ea9](https://github.com/daptiv/api-metrics-client/commit/fc15ea9))
+* docs(changelog): add changelog ([d7b1710](https://github.com/daptiv/api-metrics-client/commit/d7b1710))
+* docs(changelog): update changelog ([71bad8d](https://github.com/daptiv/api-metrics-client/commit/71bad8d))
 
 
 
