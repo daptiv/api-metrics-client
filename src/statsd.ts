@@ -12,7 +12,7 @@ export class StatsD {
     private client: StatsdClient;
     private prefix: string;
     constructor(options: StatsDOptions) {
-        this.prefix = options.prefix;
+        this.prefix = this.cleanPrefix(options.prefix);
         this.client = options.statsdClient || new StatsdClient({host: options.host});
     }
 
@@ -37,5 +37,12 @@ export class StatsD {
         return !this.prefix
             ? key
             : `${this.prefix}.${key}`;
+    }
+
+    private cleanPrefix(prefix: string): string {
+        if (!prefix) {
+            return null;
+        }
+        return prefix.toLowerCase().replace(/[^a-z0-9\.]/g, '_');
     }
 }

@@ -48,6 +48,17 @@ describe('statsd', () => {
             statsd = new StatsD({host: 'test.test.com', statsdClient: statsdSpy, prefix: prefix});
         });
 
+        it('should lowercase prefix and replace all non-alphanumeric characters (or . ) with _', () => {
+            let oddPrefix       = 'Environment.Prefix&format test';
+            let formattedPrefix = 'environment.prefix_format_test';
+            let key = 'my.key';
+
+            statsd = new StatsD({host: 'test.test.com', statsdClient: statsdSpy, prefix: oddPrefix});
+            statsd.increment(key);
+
+            expect(statsdSpy.increment).toHaveBeenCalledWith(`${formattedPrefix}.${key}`);
+        });
+
         it('counter should prefix key with env key', () => {
             let key = 'test.key';
             let value = 11;
