@@ -1,7 +1,7 @@
 import { RouteSpec } from 'restify';
 
 export class MetricsKeyBuilder {
-    fromRouteSpec(routeSpec: RouteSpec): string {
+    fromRouteSpecAndStatus(routeSpec: RouteSpec, statusCode?: number): string {
         if (!routeSpec) {
             return '';
         }
@@ -16,10 +16,13 @@ export class MetricsKeyBuilder {
         if (routeSpec.method) {
             key = `${key}.${routeSpec.method.toLowerCase()}`;
         }
+        if (statusCode) {
+            key = `${key}.${statusCode}`;
+        }
         return key;
     }
 
-    fromUrl(url: string): string {
+    fromUrlAndStatus(url: string, statusCode?: number): string {
         if (!url) {
             return '';
         }
@@ -38,7 +41,11 @@ export class MetricsKeyBuilder {
 
         let path = url.substring(idxStart, idxEnd);
 
-        return this.pathToKey(path);
+        let key: string = this.pathToKey(path);
+        if (statusCode) {
+            key = `${key}.${statusCode}`;
+        }
+        return key;
     }
 
     private pathToKey(path: string): string {
