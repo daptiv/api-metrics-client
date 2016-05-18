@@ -16,13 +16,12 @@ describe('metrics-logger', () => {
 
     beforeEach(() => {
         statsDSpy = jasmine.createSpyObj('statsDSpy', ['timing']);
-        logger.setStatsD(statsDSpy);
         logger.register(serverSpy, statsDOptions);
-        serverOnSpy = serverSpy.on;
-        log = serverOnSpy.calls.argsFor(0)[1];
+        log = new logger.LogFactory(statsDSpy).createLogger();
     });
 
     it('should register server \'after\' event handler', () => {
+        serverOnSpy = serverSpy.on;
         expect(serverSpy.on).toHaveBeenCalledWith('after', jasmine.any(Function));
     });
 
@@ -31,7 +30,7 @@ describe('metrics-logger', () => {
         mockRequest.time.and.returnValue([5, 0]);
         mockRoute.name = 'route-name';
 
-        log(mockRequest, jasmine.any, mockRoute, jasmine.any);
+        log(mockRequest, mockRoute);
 
         expect(statsDSpy.timing).toHaveBeenCalledWith(logger.DEFAULT_KEY_NAME, jasmine.any(Number));
     });
@@ -41,7 +40,7 @@ describe('metrics-logger', () => {
         mockRequest.time.and.returnValue([5, 0]);
         mockRoute.name = 'route-2';
 
-        log(mockRequest, jasmine.any, mockRoute, jasmine.any);
+        log(mockRequest, mockRoute);
 
         expect(statsDSpy.timing).toHaveBeenCalledWith(mockRoute.name, jasmine.any(Number));
     });
@@ -51,7 +50,7 @@ describe('metrics-logger', () => {
         mockRequest.time.and.returnValue([5, 0]);
         mockRoute.name = 'route-name';
 
-        log(mockRequest, jasmine.any, mockRoute, jasmine.any);
+        log(mockRequest, mockRoute);
 
         expect(statsDSpy.timing).toHaveBeenCalledWith(jasmine.any(String), 5000);
     });
@@ -61,7 +60,7 @@ describe('metrics-logger', () => {
         mockRequest.time.and.returnValue([5, 2000000]);
         mockRoute.name = 'route-name';
 
-        log(mockRequest, jasmine.any, mockRoute, jasmine.any);
+        log(mockRequest, mockRoute);
 
         expect(statsDSpy.timing).toHaveBeenCalledWith(jasmine.any(String), 5002);
     });
@@ -71,7 +70,7 @@ describe('metrics-logger', () => {
         mockRequest.time.and.returnValue([0, 1000010]);
         mockRoute.name = 'route-name';
 
-        log(mockRequest, jasmine.any, mockRoute, jasmine.any);
+        log(mockRequest, mockRoute);
 
         expect(statsDSpy.timing).toHaveBeenCalledWith(jasmine.any(String), 1.000010);
     });
