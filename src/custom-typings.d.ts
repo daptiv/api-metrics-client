@@ -19,7 +19,7 @@ interface Request extends http.ServerRequest {
   query: any;
   secure: boolean;
   time: () => [number, number];
-  timers: {[key: string]: [number, number]};
+  timers: Array<{name: string, time: [number, number]}>;
   params: any;
   files?: { [name: string]: requestFileInterface };
   isSecure: () => boolean;

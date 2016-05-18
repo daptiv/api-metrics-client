@@ -2,7 +2,6 @@
 import { Request } from './custom-typings';
 import { Route, Response, Server } from 'restify';
 import { StatsD, StatsDOptions } from './statsd';
-import * as _ from 'lodash';
 
 type HighResolutionTime = [number, number]; // [seconds, nanoseconds]
 
@@ -25,8 +24,8 @@ export class LogFactory {
         return (request: Request, route: Route) => {
             let key: string;
 
-            let timer = _.find(request.timers, (item) => {
-                return item['name'] === route.name;
+            let timer = request.timers.find((item) => {
+                return item.name === route.name;
             });
 
             if (timer) {
