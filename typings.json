@@ -2,7 +2,6 @@
   "ambientDependencies": {
     "bunyan": "registry:dt/bunyan#0.0.0+20160412155112",
     "jasmine": "registry:dt/jasmine#2.2.0+20160412134438",
-    "lodash": "registry:dt/lodash#3.10.0+20160330154726",
     "node": "registry:dt/node#4.0.0+20160412142033",
     "restify": "registry:dt/restify#2.0.0+20160425141054",
     "statsd-client": "registry:dt/statsd-client#0.1.0+20160316155526"

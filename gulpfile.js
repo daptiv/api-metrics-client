@@ -7,8 +7,13 @@ var gulp = require('gulp'),
     outDir = tsconfig.compilerOptions.outDir || 'dist',
     testPattern = 'dist/**/spec/*.js';
 
-gulp.task('build', () => {
+gulp.task('copy:typings', () => {
+    return gulp
+        .src('src/**/*.d.ts')
+        .pipe(gulp.dest('dist'));
+});
 
+gulp.task('build', ['copy:typings'], () => {
     return tsProj
         .src()
         .pipe(ts(tsProj))
