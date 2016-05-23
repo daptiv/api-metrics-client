@@ -19,7 +19,7 @@ interface Request extends http.ServerRequest {
   path: () => string;
   query: any;
   secure: boolean;
-  time: () => [number, number];
+  time: () => number;
   timers: Array<{name: string, time: [number, number]}>;
   params: any;
   files?: { [name: string]: requestFileInterface };

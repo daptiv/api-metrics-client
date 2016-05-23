@@ -17,7 +17,7 @@ describe('metrics-logger', () => {
     beforeEach(() => {
         statsDSpy = jasmine.createSpyObj('statsDSpy', ['timing']);
         logger.register(serverSpy, statsDOptions);
-        log = new logger.LogFactory(statsDSpy).createLogger();
+        log = new logger.MetricsLogFactory(statsDSpy).createLogger();
     });
 
     it('should register server \'after\' event handler', () => {

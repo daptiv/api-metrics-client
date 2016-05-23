@@ -11,12 +11,14 @@ export interface StatsDOptions {
     statsdClient?: StatsdClient;
 }
 
+const DEBUG_STATSD: boolean = false;
+
 export class StatsD {
     private client: StatsdClient;
     private prefix: string;
     constructor(options: StatsDOptions) {
         this.prefix = this.cleanPrefix(options.prefix);
-        this.client = options.statsdClient || new StatsdClient({host: options.host});
+        this.client = options.statsdClient || new StatsdClient({host: options.host, debug: DEBUG_STATSD});
     }
 
     counter(key: string, value: number) {

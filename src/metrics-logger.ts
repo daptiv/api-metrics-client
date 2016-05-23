@@ -3,20 +3,23 @@ import { Request } from './custom-typings';
 import { Route, Response, Server } from 'restify';
 import { StatsD, StatsDOptions } from './statsd';
 
-type HighResolutionTime = [number, number]; // [seconds, nanoseconds]
+/**
+ * tuple of [seconds, nanoseconds]
+ */
+type HighResolutionTime = [number, number];
 
 export const DEFAULT_KEY_NAME: string = 'handler-0';
 
 export function register(server: Server, statsDOptions: StatsDOptions) {
     let statsD: StatsD = new StatsD(statsDOptions);
-    let logger = new LogFactory(statsD).createLogger();
+    let logger = new MetricsLogFactory(statsD).createLogger();
 
     server.on('after', (request: Request, response: Response, route: Route, error) => {
         logger(request, route);
     });
 }
 
-export class LogFactory {
+export class MetricsLogFactory {
     constructor(private statsD: StatsD) {
     }
 
@@ -25,18 +28,16 @@ export class LogFactory {
             let key: string;
 
             let timer = request.timers.find((item) => {
-                return item.name === route.name;
+                return item.name === route.name || item.name === DEFAULT_KEY_NAME;
             });
 
             if (timer) {
-                key = route.name;
-            } else {
-                key = DEFAULT_KEY_NAME;
-            }
+                key = timer.name;
+                let time = toMilliseconds(timer.time);
 
-            let time = toMilliseconds(request.time());
-            if (time) {
-                this.statsD.timing(key, time);
+                if (time) {
+                    this.statsD.timing(key, time);
+                }
             }
         };
     }
