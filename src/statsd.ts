@@ -30,7 +30,6 @@ export class StatsD {
     }
 
     increment(key: string) {
-
         this.client.increment(this.processKey(key));
     }
 

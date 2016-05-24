@@ -1,7 +1,7 @@
 'use strict';
-import * as logger from '../metrics-logger';
+import * as metricsLogger from '../metrics-logger';
 import { StatsDOptions } from '../statsd';
-import { Route } from 'restify';
+import { Route, RouteSpec } from 'restify';
 
 describe('metrics-logger', () => {
     let serverSpy = jasmine.createSpyObj('server', ['on']);
@@ -9,15 +9,25 @@ describe('metrics-logger', () => {
         host: 'test.test.com'
     };
     let serverOnSpy: jasmine.Spy;
-    let log;
+    let logger;
     let statsDSpy;
-    let mockRequest = jasmine.createSpyObj('mockRequest', ['time']);
+    let mockRequest = jasmine.createSpyObj('mockRequest', ['']);
+    let mockResponse = jasmine.createSpyObj('mockResponse', ['']);
     let mockRoute = <Route>{};
+    let routeSpec: RouteSpec;
 
     beforeEach(() => {
         statsDSpy = jasmine.createSpyObj('statsDSpy', ['timing']);
-        logger.register(serverSpy, statsDOptions);
-        log = new logger.MetricsLogFactory(statsDSpy).createLogger();
+        metricsLogger.register(serverSpy, statsDOptions);
+        logger = new metricsLogger.MetricsLogFactory(statsDSpy).createLogger();
+        mockResponse.statusCode = 200;
+        routeSpec = {
+            path: '/tasks',
+            method: null,
+            versions: [],
+            name: 'routeHandlerName'
+        };
+        mockRoute.spec = routeSpec;
     });
 
     it('should register server \'after\' event handler', () => {
@@ -25,54 +35,122 @@ describe('metrics-logger', () => {
         expect(serverSpy.on).toHaveBeenCalledWith('after', jasmine.any(Function));
     });
 
-    it('when request timer not available for route should record time for default handler', () => {
+    it('when request timer not available for route should not record time', () => {
         mockRequest.timers = [];
-        mockRequest.time.and.returnValue([5, 0]);
-        mockRoute.name = 'route-name';
 
-        log(mockRequest, mockRoute);
+        logger(mockRequest, mockResponse, mockRoute);
 
-        expect(statsDSpy.timing).toHaveBeenCalledWith(logger.DEFAULT_KEY_NAME, jasmine.any(Number));
+        expect(statsDSpy.timing).not.toHaveBeenCalled();
     });
 
-    it('when request timer is available for route should record time for route name', () => {
-        mockRequest.timers = [{name: 'route-1', time: 10}, {name: 'route-2', time: 20}, {name: 'route-3', time: 30}];
-        mockRequest.time.and.returnValue([5, 0]);
+    it('when request timer is available for route should record time for route', () => {
+        mockRequest.timers = [{name: 'route-1', time: [0, 10]}, {name: 'route-2', time: [0, 20]}, {name: 'route-3', time: [0, 30]}];
         mockRoute.name = 'route-2';
 
-        log(mockRequest, mockRoute);
+        logger(mockRequest, mockResponse, mockRoute);
 
-        expect(statsDSpy.timing).toHaveBeenCalledWith(mockRoute.name, jasmine.any(Number));
+        expect(statsDSpy.timing).toHaveBeenCalledWith('tasks.200', jasmine.any(Number));
     });
 
-    it('should convert request time (seconds only) to ms', () => {
-        mockRequest.timers = [{name: 'route-1', time: 10}];
-        mockRequest.time.and.returnValue([5, 0]);
-        mockRoute.name = 'route-name';
+    describe('metrics key', () => {
+        beforeEach(() => {
+            mockRequest.timers = [{name: 'route-1', time: [5, 0]}];
+            mockRoute.name = 'route-1';
+        });
 
-        log(mockRequest, mockRoute);
+        it('should return empty key when routeSpec is null', () => {
+            mockRoute.spec = null;
 
-        expect(statsDSpy.timing).toHaveBeenCalledWith(jasmine.any(String), 5000);
+            logger(mockRequest, mockResponse, mockRoute);
+
+            expect(statsDSpy.timing).toHaveBeenCalledWith('', 5000);
+        });
+
+        it('should remove the leading / before processing path', () => {
+            routeSpec.path = '/tasks';
+            mockRoute.spec = routeSpec;
+
+            logger(mockRequest, mockResponse, mockRoute);
+
+            expect(statsDSpy.timing).toHaveBeenCalledWith('tasks.200', jasmine.any(Number));
+        });
+
+        it('should convert . in path to _', () => {
+            routeSpec.path = '/tasks.flagged';
+            mockRoute.spec = routeSpec;
+
+            logger(mockRequest, mockResponse, mockRoute);
+
+            expect(statsDSpy.timing).toHaveBeenCalledWith('tasks_flagged.200', jasmine.any(Number));
+        });
+
+        it('should convert : in path to _', () => {
+            routeSpec.path = '/tasks:flagged';
+            mockRoute.spec = routeSpec;
+
+            logger(mockRequest, mockResponse, mockRoute);
+
+            expect(statsDSpy.timing).toHaveBeenCalledWith('tasks_flagged.200', jasmine.any(Number));
+        });
+
+        it('should convert / in path to .', () => {
+            routeSpec.path = '/tasks/flagged';
+            mockRoute.spec = routeSpec;
+
+            logger(mockRequest, mockResponse, mockRoute);
+
+            expect(statsDSpy.timing).toHaveBeenCalledWith('tasks.flagged.200', jasmine.any(Number));
+        });
+
+        it('should append lowercased method when method is defined', () => {
+            routeSpec.method = 'GET';
+            mockRoute.spec = routeSpec;
+
+            logger(mockRequest, mockResponse, mockRoute);
+
+            expect(statsDSpy.timing).toHaveBeenCalledWith('tasks.get.200', jasmine.any(Number));
+        });
+
+        it('should append statusCode if it exists', () => {
+            logger(mockRequest, mockResponse, mockRoute);
+
+            expect(statsDSpy.timing).toHaveBeenCalledWith('tasks.200', jasmine.any(Number));
+        });
+
+        it('should not append statusCode if it does not exist', () => {
+            mockResponse.statusCode = null;
+            logger(mockRequest, mockResponse, mockRoute);
+
+            expect(statsDSpy.timing).toHaveBeenCalledWith('tasks', jasmine.any(Number));
+        });
     });
 
-    it('should convert request time (seconds & ns) to ms', () => {
-        mockRequest.timers = [{name: 'route-1', time: 10}];
-        mockRequest.time.and.returnValue([5, 2000000]);
-        mockRoute.name = 'route-name';
+    describe('metrics timer\'s time', () => {
+        it('should be converted (seconds only) to ms', () => {
+            mockRequest.timers = [{name: 'route-1', time: [5, 0]}];
+            mockRoute.name = 'route-1';
 
-        log(mockRequest, mockRoute);
+            logger(mockRequest, mockResponse, mockRoute);
 
-        expect(statsDSpy.timing).toHaveBeenCalledWith(jasmine.any(String), 5002);
+            expect(statsDSpy.timing).toHaveBeenCalledWith(jasmine.any(String), 5000);
+        });
+
+        it('should be converted (seconds & ns) to ms', () => {
+            mockRequest.timers = [{name: 'route-1', time: [5, 2000000]}];
+            mockRoute.name = 'route-1';
+
+            logger(mockRequest, mockResponse, mockRoute);
+
+            expect(statsDSpy.timing).toHaveBeenCalledWith(jasmine.any(String), 5002);
+        });
+
+        it('should be converted (ns only) to ms', () => {
+            mockRequest.timers = [{name: 'route-1', time: [0, 1000010]}];
+            mockRoute.name = 'route-1';
+
+            logger(mockRequest, mockResponse, mockRoute);
+
+            expect(statsDSpy.timing).toHaveBeenCalledWith(jasmine.any(String), 1.000010);
+        });
     });
-
-    it('should convert request time (ns only) to ms', () => {
-        mockRequest.timers = [{name: 'route-1', time: 10}];
-        mockRequest.time.and.returnValue([0, 1000010]);
-        mockRoute.name = 'route-name';
-
-        log(mockRequest, mockRoute);
-
-        expect(statsDSpy.timing).toHaveBeenCalledWith(jasmine.any(String), 1.000010);
-    });
-
 });
