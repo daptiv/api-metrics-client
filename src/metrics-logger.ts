@@ -2,6 +2,7 @@
 import { Request } from './custom-typings';
 import { Route, RouteSpec, Response, Server } from 'restify';
 import { StatsD, StatsDOptions } from './statsd';
+import { MetricsKeyBuilder } from './metrics-key-builder';
 
 /**
  * tuple of [seconds, nanoseconds]
@@ -10,9 +11,10 @@ type HighResolutionTime = [number, number];
 
 export const DEFAULT_KEY_NAME: string = 'handler-0';
 
-export function register(server: Server, statsDOptions: StatsDOptions) {
+export function registerHandledRouteTimingMetrics(server: Server, statsDOptions: StatsDOptions) {
     let statsD: StatsD = new StatsD(statsDOptions);
-    let logger = new MetricsLogFactory(statsD).createLogger();
+    let metricsKeyBuilder: MetricsKeyBuilder = new MetricsKeyBuilder();
+    let logger = new MetricsLogFactory(statsD, metricsKeyBuilder).createLogger();
 
     server.on('after', (request: Request, response: Response, route: Route, error) => {
         logger(request, response, route);
@@ -20,7 +22,7 @@ export function register(server: Server, statsDOptions: StatsDOptions) {
 }
 
 export class MetricsLogFactory {
-    constructor(private statsD: StatsD) {
+    constructor(private statsD: StatsD, private metricsKeyBuilder: MetricsKeyBuilder) {
     }
 
     createLogger() {
@@ -38,7 +40,7 @@ export class MetricsLogFactory {
             }
 
             let routeSpec: RouteSpec = route && route.spec;
-            let key: string = this.fromRouteSpecAndStatus(routeSpec, response.statusCode);
+            let key: string = this.metricsKeyBuilder.fromRouteSpecAndStatus(routeSpec, response.statusCode);
             let time = this.toMilliseconds(timer.time);
             if (time) {
                 this.statsD.timing(key, time);
@@ -46,32 +48,9 @@ export class MetricsLogFactory {
         };
     }
 
-    private fromRouteSpecAndStatus(routeSpec: RouteSpec, statusCode?: number): string {
-        if (!routeSpec) {
-            return '';
-        }
-
-        let path: string = routeSpec.path.slice(1);
-        let key: string = this.pathToKey(path);
-
-        if (routeSpec.method) {
-            key = `${key}.${routeSpec.method.toLowerCase()}`;
-        }
-        if (statusCode) {
-            key = `${key}.${statusCode}`;
-        }
-        return key;
-    }
-
     private toMilliseconds(hrTime: HighResolutionTime): number {
         let milliSeconds = hrTime[0] * 1000;
         milliSeconds += hrTime[1] / 1000000;
         return milliSeconds;
-    }
-
-    private pathToKey(path: string): string {
-        return (path || '')
-            .replace(/[\.:]/g, '_')
-            .replace(/\//g, '.');
     }
 };

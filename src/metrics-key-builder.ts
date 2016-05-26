@@ -16,9 +16,7 @@ export class MetricsKeyBuilder {
         if (routeSpec.method) {
             key = `${key}.${routeSpec.method.toLowerCase()}`;
         }
-        if (statusCode) {
-            key = `${key}.${statusCode}`;
-        }
+        key = this.addStatusToKey(key, statusCode);
         return key;
     }
 
@@ -42,6 +40,11 @@ export class MetricsKeyBuilder {
         let path = url.substring(idxStart, idxEnd);
 
         let key: string = this.pathToKey(path);
+        key = this.addStatusToKey(key, statusCode);
+        return key;
+    }
+
+    private addStatusToKey(key: string, statusCode: number) {
         if (statusCode) {
             key = `${key}.${statusCode}`;
         }
