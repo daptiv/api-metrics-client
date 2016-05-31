@@ -1,6 +1,23 @@
+<a name="1.1.0"></a>
+# 1.1.0 (2016-05-31)
+
+* refactor(metrics): add statusCode to metrics key ([77bb71a](https://github.com/daptiv/api-metrics-client/commit/77bb71a))
+* refactor(metrics): allow custom typings to be installed and expose metrics ([1815cc0](https://github.com/daptiv/api-metrics-client/commit/1815cc0))
+* refactor(metrics): refine determination of metrics key ([330d8c7](https://github.com/daptiv/api-metrics-client/commit/330d8c7))
+* refactor(metrics): updates following code review ([1ca5640](https://github.com/daptiv/api-metrics-client/commit/1ca5640))
+* refactor(metrics): updates from code review ([9c748a8](https://github.com/daptiv/api-metrics-client/commit/9c748a8))
+* bug(metrics): correct Request.timers type and remove lodash ([6603473](https://github.com/daptiv/api-metrics-client/commit/6603473))
+* feat(metrics): add metrics logger ([693abc9](https://github.com/daptiv/api-metrics-client/commit/693abc9))
+* feat(metrics): refactor to use LogFactory ([29e974f](https://github.com/daptiv/api-metrics-client/commit/29e974f))
+* feat(metrics): refine implementation ([8b421b7](https://github.com/daptiv/api-metrics-client/commit/8b421b7))
+
+
+
 <a name="1.0.3"></a>
 ## 1.0.3 (2016-05-03)
 
+* 1.0.3 ([58507ee](https://github.com/daptiv/api-metrics-client/commit/58507ee))
+* docs(changelog): update changelog ([9ce724f](https://github.com/daptiv/api-metrics-client/commit/9ce724f))
 * fix(typings): include typings in npm package ([184840c](https://github.com/daptiv/api-metrics-client/commit/184840c))
 
 
