@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "scripts": {
-    "build": "npm run typings && tsc -p .",
+    "build": "npm run typings && tsc -p . && gulp copy:typings",
     "changelog": "conventional-changelog -p api-metrics-client -i CHANGELOG.md -s -r 0",
     "changelog:git:add": "git add CHANGELOG.md",
     "changelog:git:commit": "git commit -m 'docs(changelog): update changelog'",

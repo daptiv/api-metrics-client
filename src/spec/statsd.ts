@@ -1,4 +1,4 @@
-import {StatsD} from '../statsd';
+import { StatsD } from '../statsd';
 
 describe('statsd', () => {
     let statsd;
