@@ -1755,11 +1755,6 @@
       "from": "sprintf-js@>=1.0.3 <2.0.0",
       "resolved": "https://registry.npmjs.org/sprintf-js/-/sprintf-js-1.0.3.tgz"
     },
-    "statsd-client": {
-      "version": "0.2.2",
-      "from": "statsd-client@>=0.2.2 <0.3.0",
-      "resolved": "https://registry.npmjs.org/statsd-client/-/statsd-client-0.2.2.tgz"
-    },
     "stream-consume": {
       "version": "0.1.0",
       "from": "stream-consume@>=0.1.0 <0.2.0",

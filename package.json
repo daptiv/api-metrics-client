@@ -40,8 +40,7 @@
   },
   "homepage": "https://github.com/daptiv/api-metrics-client#readme",
   "dependencies": {
-    "node-dogstatsd": "0.0.6",
-    "statsd-client": "^0.2.2"
+    "node-dogstatsd": "0.0.6"
   },
   "devDependencies": {
     "conventional-changelog-cli": "^1.1.1",
