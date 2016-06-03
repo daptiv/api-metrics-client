@@ -1,7 +1,6 @@
 'use strict';
-import { Request } from './custom-typings';
-import { Route, RouteSpec, Response, Server } from 'restify';
-import { StatsD, StatsDOptions } from './statsd';
+//import { Request } from './custom-typings';
+import { StatsDClient } from './statsd-client';
 import { MetricsKeyBuilder } from './metrics-key-builder';
 
 /**
@@ -11,10 +10,10 @@ type HighResolutionTime = [number, number];
 
 export const DEFAULT_KEY_NAME: string = 'handler-0';
 
-export function registerHandledRouteTimingMetrics(server: Server, statsDOptions: StatsDOptions) {
-    let statsD: StatsD = new StatsD(statsDOptions);
+export function registerHandledRouteTimingMetrics(server: Server, StatsDClientOptions: StatsDClientOptions) {
+    let StatsDClient: StatsDClient = new StatsDClient(StatsDClientOptions);
     let metricsKeyBuilder: MetricsKeyBuilder = new MetricsKeyBuilder();
-    let logger = new MetricsLogFactory(statsD, metricsKeyBuilder).createLogger();
+    let logger = new MetricsLogFactory(StatsDClient, metricsKeyBuilder).createLogger();
 
     server.on('after', (request: Request, response: Response, route: Route, error) => {
         logger(request, response, route);
@@ -22,7 +21,7 @@ export function registerHandledRouteTimingMetrics(server: Server, statsDOptions:
 }
 
 export class MetricsLogFactory {
-    constructor(private statsD: StatsD, private metricsKeyBuilder: MetricsKeyBuilder) {
+    constructor(private StatsDClient: StatsDClient, private metricsKeyBuilder: MetricsKeyBuilder) {
     }
 
     createLogger() {
@@ -43,7 +42,7 @@ export class MetricsLogFactory {
             let key: string = this.metricsKeyBuilder.fromRouteSpecAndStatus(routeSpec, response.statusCode);
             let time = this.toMilliseconds(timer.time);
             if (time) {
-                this.statsD.timing(key, time);
+                this.StatsDClient.timing(key, time);
             }
         };
     }

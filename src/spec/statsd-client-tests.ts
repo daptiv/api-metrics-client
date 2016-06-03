@@ -1,11 +1,11 @@
-import { StatsD } from '../statsd';
+import { StatsDClient } from '../statsd-client';
 
 describe('statsd', () => {
     let statsd;
     let statsdSpy;
     beforeEach(() => {
         statsdSpy = jasmine.createSpyObj('statsdSpy', ['timing', 'increment', 'gauge']);
-        statsd = new StatsD({host: 'test.test.com', statsdClient: statsdSpy});
+        statsd = new StatsDClient({host: 'test.test.com', statsdClient: statsdSpy});
     });
 
     it('gauge should call through to statsd-client.gauge', () => {

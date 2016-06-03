@@ -1,28 +1,26 @@
 // include statsd-client typings in package, otherwise will have missing definitions
-///<reference path="../typings/main/ambient/statsd-client/index.d.ts" />
+////<reference path="../typings/main/ambient/statsd-client/index.d.ts" />
 
 /* tslint:disable:no-require-imports */
-import StatsdClient = require('statsd-client');
+import StatsD = require('node-dogstatsd');
 /* tslint:enable:no-require-imports */
 
-export interface StatsDOptions {
+export interface StatsDClientOptions {
     host: string;
+    port?: number;
+    socket?: string;
     prefix?: string;
-    statsdClient?: StatsdClient;
+    globalTags?: string[];
+    statsd?: StatsD;
 }
 
-const DEBUG_STATSD: boolean = false;
-
-export class StatsD {
-    private client: StatsdClient;
+export class StatsDClient {
+    private client: StatsD;
     private prefix: string;
-    constructor(options: StatsDOptions) {
-        this.prefix = this.cleanPrefix(options.prefix);
-        this.client = options.statsdClient || new StatsdClient({host: options.host, debug: DEBUG_STATSD});
-    }
 
-    counter(key: string, value: number) {
-        this.client.counter(this.processKey(key), value);
+    constructor(options: StatsDClientOptions) {
+        this.prefix = this.cleanPrefix(options.prefix);
+        this.client = options.statsd || new StatsD(options.host, options.port, options.socket, { global_tags: options.globalTags });
     }
 
     gauge(key: string, value: number) {
