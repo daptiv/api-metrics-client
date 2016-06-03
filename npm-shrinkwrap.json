@@ -1,6 +1,6 @@
 {
   "name": "api-metrics-client",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "dependencies": {
     "abbrev": {
       "version": "1.0.7",
@@ -735,6 +735,11 @@
         }
       }
     },
+    "gulp-tslint": {
+      "version": "5.0.0",
+      "from": "gulp-tslint@*",
+      "resolved": "https://registry.npmjs.org/gulp-tslint/-/gulp-tslint-5.0.0.tgz"
+    },
     "gulp-typescript": {
       "version": "2.13.5",
       "from": "gulp-typescript@>=2.13.0 <3.0.0",
@@ -1316,6 +1321,11 @@
       "version": "1.0.1",
       "from": "map-obj@>=1.0.1 <2.0.0",
       "resolved": "https://registry.npmjs.org/map-obj/-/map-obj-1.0.1.tgz"
+    },
+    "map-stream": {
+      "version": "0.1.0",
+      "from": "map-stream@>=0.1.0 <0.2.0",
+      "resolved": "https://registry.npmjs.org/map-stream/-/map-stream-0.1.0.tgz"
     },
     "meow": {
       "version": "3.7.0",

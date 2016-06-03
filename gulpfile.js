@@ -4,8 +4,10 @@ var gulp = require('gulp'),
     jasmine = require('gulp-jasmine'),
     plumber = require('gulp-plumber'),
     tsconfig = require('./tsconfig.json'),
+    tslint = require('gulp-tslint'),
     outDir = tsconfig.compilerOptions.outDir || 'dist',
-    testPattern = 'dist/**/spec/*.js';
+    testPattern = 'dist/**/spec/*.js',
+    srcPattern = 'src/**/*.ts';
 
 gulp.task('copy:typings', () => {
     return gulp
@@ -13,11 +15,16 @@ gulp.task('copy:typings', () => {
         .pipe(gulp.dest('dist'));
 });
 
-gulp.task('build', ['copy:typings'], () => {
-    return tsProj
-        .src()
+gulp.task('build', ['lint', 'copy:typings'], () => {
+    return tsProj.src()
         .pipe(ts(tsProj))
         .pipe(gulp.dest(outDir));
+});
+
+gulp.task('lint', () => {
+  return gulp.src(srcPattern)
+        .pipe(tslint())
+        .pipe(tslint.report('verbose'));
 });
 
 gulp.task('test', ['build'], () => {
@@ -33,5 +40,5 @@ gulp.task('test:watch', ['build'], () => {
 
 gulp.task('watch', () => {
     gulp.start('test:watch');
-    gulp.watch('src/**/*.ts', ['test:watch']);
+    gulp.watch(srcPattern, ['test:watch']);
 });
