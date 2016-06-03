@@ -4,16 +4,8 @@ describe('statsd', () => {
     let statsd;
     let statsdSpy;
     beforeEach(() => {
-        statsdSpy = jasmine.createSpyObj('statsdSpy', ['counter', 'timing', 'increment', 'gauge']);
+        statsdSpy = jasmine.createSpyObj('statsdSpy', ['timing', 'increment', 'gauge']);
         statsd = new StatsD({host: 'test.test.com', statsdClient: statsdSpy});
-    });
-
-    it('counter should call through to statsd-client.counter', () => {
-        let key = 'test.key';
-        let value = 11;
-        statsd.counter(key, value);
-
-        expect(statsdSpy.counter).toHaveBeenCalledWith(key, value);
     });
 
     it('gauge should call through to statsd-client.gauge', () => {
