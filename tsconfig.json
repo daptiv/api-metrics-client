@@ -6,6 +6,8 @@
         "sourceMap": true,
         "target": "es6"
     },
+    "buildOnSave": false,
+    "compileOnSave": false,
     "exclude": [
         "dist",
         "node_modules",
