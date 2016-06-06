@@ -2,7 +2,7 @@
 ////<reference path="../typings/main/ambient/statsd-client/index.d.ts" />
 
 /* tslint:disable:no-require-imports */
-import StatsD = require('node-dogstatsd');
+import { StatsD } from 'node-dogstatsd';
 /* tslint:enable:no-require-imports */
 
 export interface StatsDClientOptions {

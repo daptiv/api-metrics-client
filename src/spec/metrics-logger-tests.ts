@@ -1,12 +1,12 @@
 'use strict';
 import * as metricsLogger from '../metrics-logger';
 import { MetricsKeyBuilder } from '../metrics-key-builder';
-import { StatsDOptions } from '../statsd';
+import { StatsDClientOptions } from '../statsd-client';
 import { Route, RouteSpec } from 'restify';
 
 describe('metrics-logger', () => {
     let serverSpy = jasmine.createSpyObj('server', ['on']);
-    let statsDOptions: StatsDOptions = {
+    let statsDOptions: StatsDClientOptions = {
         host: 'test.test.com'
     };
     let serverOnSpy: jasmine.Spy;

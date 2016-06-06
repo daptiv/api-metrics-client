@@ -5,7 +5,7 @@ describe('statsd', () => {
     let statsdSpy;
     beforeEach(() => {
         statsdSpy = jasmine.createSpyObj('statsdSpy', ['timing', 'increment', 'gauge']);
-        statsd = new StatsDClient({host: 'test.test.com', statsdClient: statsdSpy});
+        statsd = new StatsDClient({host: 'test.test.com', statsd: statsdSpy});
     });
 
     it('gauge should call through to statsd-client.gauge', () => {
@@ -37,7 +37,7 @@ describe('statsd', () => {
     describe('when prefix option is provided', () => {
         const prefix = 'env.prefix';
         beforeEach(() => {
-            statsd = new StatsD({host: 'test.test.com', statsdClient: statsdSpy, prefix: prefix});
+            statsd = new StatsDClient({host: 'test.test.com', statsd: statsdSpy, prefix: prefix});
         });
 
         it('should lowercase prefix and replace all non-alphanumeric characters (or . ) with _', () => {
@@ -45,19 +45,10 @@ describe('statsd', () => {
             let formattedPrefix = 'environment.prefix_format_test';
             let key = 'my.key';
 
-            statsd = new StatsD({host: 'test.test.com', statsdClient: statsdSpy, prefix: oddPrefix});
+            statsd = new StatsDClient({host: 'test.test.com', statsd: statsdSpy, prefix: oddPrefix});
             statsd.increment(key);
 
             expect(statsdSpy.increment).toHaveBeenCalledWith(`${formattedPrefix}.${key}`);
-        });
-
-        it('counter should prefix key with env key', () => {
-            let key = 'test.key';
-            let value = 11;
-
-            statsd.counter(key, value);
-
-            expect(statsdSpy.counter).toHaveBeenCalledWith(`${prefix}.${key}`, value);
         });
 
         it('gauge should prefix key with env key', () => {

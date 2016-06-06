@@ -1,6 +1,6 @@
 'use strict';
-//import { Request } from './custom-typings';
-import { StatsDClient } from './statsd-client';
+import { Request, Response, Route, RouteSpec, Server } from 'restify';
+import { StatsDClient, StatsDClientOptions } from './statsd-client';
 import { MetricsKeyBuilder } from './metrics-key-builder';
 
 /**
@@ -10,10 +10,10 @@ type HighResolutionTime = [number, number];
 
 export const DEFAULT_KEY_NAME: string = 'handler-0';
 
-export function registerHandledRouteTimingMetrics(server: Server, StatsDClientOptions: StatsDClientOptions) {
-    let StatsDClient: StatsDClient = new StatsDClient(StatsDClientOptions);
+export function registerHandledRouteTimingMetrics(server: Server, options: StatsDClientOptions) {
+    let statsdClient: StatsDClient = new StatsDClient(options);
     let metricsKeyBuilder: MetricsKeyBuilder = new MetricsKeyBuilder();
-    let logger = new MetricsLogFactory(StatsDClient, metricsKeyBuilder).createLogger();
+    let logger = new MetricsLogFactory(statsdClient, metricsKeyBuilder).createLogger();
 
     server.on('after', (request: Request, response: Response, route: Route, error) => {
         logger(request, response, route);
