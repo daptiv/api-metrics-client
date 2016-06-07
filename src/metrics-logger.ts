@@ -1,7 +1,6 @@
 'use strict';
-import { Request, Response, Route, RouteSpec, Server } from 'restify';
-import { StatsDClient, StatsDClientOptions } from './statsd-client';
 import { MetricsKeyBuilder } from './metrics-key-builder';
+import { Server, RouteSpec, Response, Request, Route } from 'restify';
 
 /**
  * tuple of [seconds, nanoseconds]

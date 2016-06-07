@@ -10,14 +10,12 @@
     "compileOnSave": false,
     "exclude": [
         "dist",
-        "node_modules",
-        "typings/browser",
-        "typings/browser.d.ts"
+        "node_modules"
     ],
     "filesGlob": [
         "src/**/*.ts",
-        "!./node_modules/**/*.ts",
-        "typings/index.d.ts"
+        "typings/index.d.ts",
+        "!./node_modules/**/*.ts"
     ],
     "atom": {
         "rewriteTsconfig": false

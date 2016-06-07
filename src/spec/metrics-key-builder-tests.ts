@@ -1,8 +1,9 @@
+'use strict';
 import { MetricsKeyBuilder } from '../metrics-key-builder';
 import { RouteSpec } from 'restify';
 
 try {
-describe('MetricsKeyBuilder', () => {
+  describe('MetricsKeyBuilder', () => {
     let builder: MetricsKeyBuilder;
 
     beforeEach(() => {

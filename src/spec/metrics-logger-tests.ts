@@ -1,7 +1,6 @@
 'use strict';
 import * as metricsLogger from '../metrics-logger';
 import { MetricsKeyBuilder } from '../metrics-key-builder';
-import { StatsDClientOptions } from '../statsd-client';
 import { Route, RouteSpec } from 'restify';
 
 describe('metrics-logger', () => {

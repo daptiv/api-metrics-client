@@ -9,13 +9,7 @@ var gulp = require('gulp'),
     testPattern = 'dist/**/spec/*.js',
     srcPattern = 'src/**/*.ts';
 
-gulp.task('copy:typings', () => {
-    return gulp
-        .src('src/**/*.d.ts')
-        .pipe(gulp.dest('dist'));
-});
-
-gulp.task('build', ['lint', 'copy:typings'], () => {
+gulp.task('build', ['lint'], () => {
     return tsProj.src()
         .pipe(ts(tsProj))
         .pipe(gulp.dest(outDir));

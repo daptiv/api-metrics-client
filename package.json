@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "scripts": {
-    "build": "npm run typings && tsc -p . && gulp copy:typings",
+    "build": "npm run typings && tsc -p .",
     "changelog": "conventional-changelog -p api-metrics-client -i CHANGELOG.md -s -r 0",
     "changelog:git:add": "git add CHANGELOG.md",
     "changelog:git:commit": "git commit -m 'docs(changelog): update changelog'",
@@ -48,10 +48,10 @@
     "gulp-jasmine": "^2.3.0",
     "gulp-plumber": "^1.1.0",
     "gulp-tslint": "^5.0.0",
-    "gulp-typescript": "^2.13.0",
+    "gulp-typescript": "^2.13.6",
     "jasmine": "^2.4.1",
     "tslint": "^3.8.1",
     "typescript": "^1.8.10",
-    "typings": "^0.8.1"
+    "typings": "^1.0.4"
   }
 }

@@ -1,3 +1,4 @@
+'use strict';
 import { RouteSpec } from 'restify';
 
 export class MetricsKeyBuilder {
