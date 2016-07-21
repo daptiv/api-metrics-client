@@ -27,7 +27,7 @@ export class MetricsLogFactory {
 
     createLogger() {
         return (request: Request, response: Response, route: Route) => {
-            var latency = response.header('Response-Time');
+            let latency = response.header('Response-Time');
 
             if (typeof (latency) !== 'number') {
                 latency = Date.now() - request.time();
