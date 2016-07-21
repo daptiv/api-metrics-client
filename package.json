@@ -40,10 +40,10 @@
   },
   "homepage": "https://github.com/daptiv/api-metrics-client#readme",
   "dependencies": {
-    "node-dogstatsd": "0.0.6"
   },
   "devDependencies": {
     "conventional-changelog-cli": "^1.1.1",
+    "daptiv-metrics-logger": "*",
     "gulp": "^3.9.1",
     "gulp-jasmine": "^2.3.0",
     "gulp-plumber": "^1.1.0",
