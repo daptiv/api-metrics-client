@@ -27,30 +27,20 @@ export class MetricsLogFactory {
 
     createLogger() {
         return (request: Request, response: Response, route: Route) => {
-            // Ignore requests without timers, e.g. OPTIONS
-            if (!request.timers) {
-                return;
+            let latency = response.header('Response-Time');
+
+            if (typeof (latency) !== 'number') {
+                latency = Date.now() - request.time();
             }
 
-            let timer = request.timers.find((item) => {
-                return item.name === route.name || item.name === DEFAULT_KEY_NAME;
-            });
-            if (!timer) {
+            if (!latency) {
                 return;
             }
 
             let routeSpec: RouteSpec = route && route.spec;
-            let key: string = this.metricsKeyBuilder.fromRouteSpecAndStatus(routeSpec, response.statusCode);
-            let time = this.toMilliseconds(timer.time);
-            if (time) {
-                this.statsD.timing(key, time);
-            }
-        };
-    }
 
-    private toMilliseconds(hrTime: HighResolutionTime): number {
-        let milliSeconds = hrTime[0] * 1000;
-        milliSeconds += hrTime[1] / 1000000;
-        return milliSeconds;
+            let key: string = this.metricsKeyBuilder.fromRouteSpecAndStatus(routeSpec, response.statusCode);
+            this.statsD.timing(key, latency);
+        };
     }
 };

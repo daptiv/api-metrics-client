@@ -1,6 +1,16 @@
+<a name="1.1.1"></a>
+## 1.1.1 (2016-07-21)
+
+* Move to restify way of recording endpoint timing ([d60f382](https://github.com/daptiv/api-metrics-client/commit/d60f382))
+* var => let ([f75f183](https://github.com/daptiv/api-metrics-client/commit/f75f183))
+
+
+
 <a name="1.1.0"></a>
 # 1.1.0 (2016-05-31)
 
+* 1.1.0 ([b50d0a6](https://github.com/daptiv/api-metrics-client/commit/b50d0a6))
+* docs(changelog): update changelog ([a1bd655](https://github.com/daptiv/api-metrics-client/commit/a1bd655))
 * refactor(metrics): add statusCode to metrics key ([77bb71a](https://github.com/daptiv/api-metrics-client/commit/77bb71a))
 * refactor(metrics): allow custom typings to be installed and expose metrics ([1815cc0](https://github.com/daptiv/api-metrics-client/commit/1815cc0))
 * refactor(metrics): refine determination of metrics key ([330d8c7](https://github.com/daptiv/api-metrics-client/commit/330d8c7))
