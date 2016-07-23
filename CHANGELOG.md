@@ -1,5 +1,5 @@
-<a name="1.1.1"></a>
-## 1.1.1 (2016-07-21)
+<a name="1.1.2"></a>
+## 1.1.2 (2016-07-22)
 
 * Move to restify way of recording endpoint timing ([d60f382](https://github.com/daptiv/api-metrics-client/commit/d60f382))
 * var => let ([f75f183](https://github.com/daptiv/api-metrics-client/commit/f75f183))
@@ -65,6 +65,3 @@
 * need to specify g++ compiler for node_js builds on v >4 ([30d7e9c](https://github.com/daptiv/api-metrics-client/commit/30d7e9c))
 * update readme ([66aeef2](https://github.com/daptiv/api-metrics-client/commit/66aeef2))
 * update restify typings ([de57734](https://github.com/daptiv/api-metrics-client/commit/de57734))
-
-
-
