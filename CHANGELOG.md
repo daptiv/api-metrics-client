@@ -1,8 +1,22 @@
-<a name="1.1.2"></a>
-## 1.1.2 (2016-07-22)
+<a name="2.0.0"></a>
+# 2.0.0 (2016-08-10)
 
+* 119590 add datadog dependency ([6c3b91b](https://github.com/daptiv/api-metrics-client/commit/6c3b91b))
+* 119590 integrate datadog as the stats server ([d6cdaf8](https://github.com/daptiv/api-metrics-client/commit/d6cdaf8))
+* 119590 integrate datadog as the stats server ([db5843f](https://github.com/daptiv/api-metrics-client/commit/db5843f))
+* 119590 update statsd.ts typings reference ([830b452](https://github.com/daptiv/api-metrics-client/commit/830b452))
+* 119590 use DefinitelyTyped instead of custom typings ([63c13a4](https://github.com/daptiv/api-metrics-client/commit/63c13a4))
+* Rev version to 1.1.2 ([cec6de0](https://github.com/daptiv/api-metrics-client/commit/cec6de0))
+
+
+
+<a name="1.1.1"></a>
+## 1.1.1 (2016-07-21)
+
+* 1.1.1 ([d7a04ea](https://github.com/daptiv/api-metrics-client/commit/d7a04ea))
 * Move to restify way of recording endpoint timing ([d60f382](https://github.com/daptiv/api-metrics-client/commit/d60f382))
 * var => let ([f75f183](https://github.com/daptiv/api-metrics-client/commit/f75f183))
+* docs(changelog): update changelog ([a3b07bb](https://github.com/daptiv/api-metrics-client/commit/a3b07bb))
 
 
 
@@ -65,3 +79,6 @@
 * need to specify g++ compiler for node_js builds on v >4 ([30d7e9c](https://github.com/daptiv/api-metrics-client/commit/30d7e9c))
 * update readme ([66aeef2](https://github.com/daptiv/api-metrics-client/commit/66aeef2))
 * update restify typings ([de57734](https://github.com/daptiv/api-metrics-client/commit/de57734))
+
+
+
