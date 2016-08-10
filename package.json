@@ -1,6 +1,6 @@
 {
   "name": "api-metrics-client",
-  "version": "2.0.2",
+  "version": "2.1.0",
   "description": "",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -39,8 +39,7 @@
     "url": "https://github.com/daptiv/api-metrics-client/issues"
   },
   "homepage": "https://github.com/daptiv/api-metrics-client#readme",
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "conventional-changelog-cli": "^1.1.1",
     "gulp": "^3.9.1",
