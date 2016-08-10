@@ -1,7 +1,16 @@
+<a name="2.0.2"></a>
+## 2.0.2 (2016-08-10)
+
+* Update readme ([568a2b5](https://github.com/daptiv/api-metrics-client/commit/568a2b5))
+
+
+
 <a name="2.0.1"></a>
 ## 2.0.1 (2016-08-10)
 
 * 119590 add npm-shrinkwrap.json ([a59f550](https://github.com/daptiv/api-metrics-client/commit/a59f550))
+* 2.0.1 ([669ef9b](https://github.com/daptiv/api-metrics-client/commit/669ef9b))
+* docs(changelog): update changelog ([a9b1ceb](https://github.com/daptiv/api-metrics-client/commit/a9b1ceb))
 
 
 
