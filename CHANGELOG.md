@@ -1,7 +1,16 @@
+<a name="2.1.0"></a>
+# 2.1.0 (2016-08-10)
+
+* 119590 remove node-dogstatsd dependency and unused parameter to DaptivStatsLogger ctor ([d2ba368](https://github.com/daptiv/api-metrics-client/commit/d2ba368))
+
+
+
 <a name="2.0.2"></a>
 ## 2.0.2 (2016-08-10)
 
+* 2.0.2 ([48caa2a](https://github.com/daptiv/api-metrics-client/commit/48caa2a))
 * Update readme ([568a2b5](https://github.com/daptiv/api-metrics-client/commit/568a2b5))
+* docs(changelog): update changelog ([bbcc1ff](https://github.com/daptiv/api-metrics-client/commit/bbcc1ff))
 
 
 
