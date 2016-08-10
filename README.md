@@ -1,10 +1,9 @@
 [![Build Status](https://travis-ci.org/daptiv/api-metrics-client.svg?branch=master)](https://travis-ci.org/daptiv/api-metrics-client)
 
 
-Everything you need to start sending API metrics.
+Everything you need to start sending API metrics to Datadog.
 
-Includes: 
+Includes:
 
-- TypeScript wrapper for [statsd-client](https://npmjs.org/packages/statsd-client)
-- Metrics key builder to create statsd keys from both urls and restify RouteSpec objects.
-
+- TypeScript wrapper for [node-dogstatsd](https://npmjs.org/packages/node-dogstatsd)
+- Metrics key builder to create statsd keys from restify RouteSpec objects.
