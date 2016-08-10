@@ -1,3 +1,10 @@
+<a name="2.0.1"></a>
+## 2.0.1 (2016-08-10)
+
+* 119590 add npm-shrinkwrap.json ([a59f550](https://github.com/daptiv/api-metrics-client/commit/a59f550))
+
+
+
 <a name="2.0.0"></a>
 # 2.0.0 (2016-08-10)
 
@@ -6,7 +13,9 @@
 * 119590 integrate datadog as the stats server ([db5843f](https://github.com/daptiv/api-metrics-client/commit/db5843f))
 * 119590 update statsd.ts typings reference ([830b452](https://github.com/daptiv/api-metrics-client/commit/830b452))
 * 119590 use DefinitelyTyped instead of custom typings ([63c13a4](https://github.com/daptiv/api-metrics-client/commit/63c13a4))
+* 2.0.0 ([4dd1a0b](https://github.com/daptiv/api-metrics-client/commit/4dd1a0b))
 * Rev version to 1.1.2 ([cec6de0](https://github.com/daptiv/api-metrics-client/commit/cec6de0))
+* docs(changelog): update changelog ([ff0648e](https://github.com/daptiv/api-metrics-client/commit/ff0648e))
 
 
 
