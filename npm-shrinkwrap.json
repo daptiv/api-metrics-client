@@ -1,6 +1,6 @@
 {
   "name": "api-metrics-client",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "dependencies": {
     "JSONStream": {
       "version": "1.1.1",
@@ -1421,7 +1421,6 @@
         }
       }
     },
-    
     "modify-values": {
       "version": "1.0.0",
       "from": "modify-values@>=1.0.0 <2.0.0",
