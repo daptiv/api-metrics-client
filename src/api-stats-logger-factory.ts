@@ -12,7 +12,7 @@ export class ApiStatsLoggerFactory {
         this.logRouteStatsFn = this.getRouteStatsLoggerFn();
     }
 
-    registerStatsLoggerForAllRoutes(server: Server, statsLogger: DaptivStatsLogger): void {
+    registerStatsLoggerForAllRoutes(server: Server): void {
         server.on('after', (request: Request, response: Response, route: Route, error: Error): void => {
             this.logRouteStatsFn(request, response, route, error);
         });

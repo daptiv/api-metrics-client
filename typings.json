@@ -1,6 +1,5 @@
 {
   "globalDependencies": {
-    "node-dogstatsd": "github:chrisbobo/DefinitelyTyped/node-dogstatsd/node-dogstatsd.d.ts#5b344a1ee6ad1d4ac202e4ebb1a05ae657077425",
     "bunyan": "registry:dt/bunyan#0.0.0+20160412155112",
     "jasmine": "registry:dt/jasmine#2.2.0+20160412134438",
     "node": "registry:dt/node#4.0.0+20160412142033",

@@ -27,7 +27,7 @@ describe('api-stats-logger-factory', () => {
         };
         statsLogger = new DaptivStatsLogger(statsLoggerOpts);
         let statsLoggerFactory = new ApiStatsLoggerFactory(statsLogger);
-        statsLoggerFactory.registerStatsLoggerForAllRoutes(serverSpy, statsLogger);
+        statsLoggerFactory.registerStatsLoggerForAllRoutes(serverSpy);
 
         logger = statsLoggerFactory.getRouteStatsLoggerFn();
 
