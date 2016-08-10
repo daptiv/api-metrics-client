@@ -60,6 +60,7 @@ describe('api-stat-key-builder', () => {
             let setPath = (regExpPath: RegExp) => {
                 routeSpec.path = <any>regExpPath;
             };
+
             it(`should prepend key with '${prefix}'`, () => {
                 setPath(/path/);
 
@@ -67,6 +68,7 @@ describe('api-stat-key-builder', () => {
 
                 expect(key.startsWith(prefix)).toBeTruthy(`"${key}" should start with "${prefix}"`);
             });
+            
             it('should strip / from start and end of expression', () => {
                 setPath(/path/);
 
