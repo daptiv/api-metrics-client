@@ -1,5 +1,5 @@
 // include statsd-client typings in package, otherwise will have missing definitions
-///<reference path="../typings/main/ambient/statsd-client/index.d.ts" />
+/// <reference path="../typings/index.d.ts"/>
 
 /* tslint:disable:no-require-imports */
 import StatsdClient = require('statsd-client');

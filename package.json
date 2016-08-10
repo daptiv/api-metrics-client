@@ -1,6 +1,6 @@
 {
   "name": "api-metrics-client",
-  "version": "1.1.2",
+  "version": "2.1.0",
   "description": "",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -39,17 +39,16 @@
     "url": "https://github.com/daptiv/api-metrics-client/issues"
   },
   "homepage": "https://github.com/daptiv/api-metrics-client#readme",
-  "dependencies": {
-    "restify": "^4.0.4",
-    "statsd-client": "^0.2.2"
-  },
+  "dependencies": {},
   "devDependencies": {
     "conventional-changelog-cli": "^1.1.1",
     "gulp": "^3.9.1",
     "gulp-jasmine": "^2.3.0",
     "gulp-plumber": "^1.1.0",
+    "gulp-tslint": "^4.3.2",
     "gulp-typescript": "^2.13.0",
     "jasmine": "^2.4.1",
+    "statsd-client": "^0.2.2",
     "tslint": "^3.8.1",
     "typescript": "^1.8.10",
     "typings": "^0.8.1"

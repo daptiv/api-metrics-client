@@ -1,3 +1,2 @@
-export * from './metrics-key-builder';
-export * from './statsd';
-export * from './metrics-logger';
+export * from './api-stats-logger-factory';
+export * from './daptiv-stats-logger';
